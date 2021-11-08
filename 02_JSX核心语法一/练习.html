@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        hi:'Hello Word',
+        list:['悬崖之上','觉醒年代','Angles Speak','不能说的秘密'],
+        count: 0,
+        array:[1,2,3],
+        number:1,
+        String: '111',
+        null:null,
+        undefined: undefined,
+        boolean:true
+      }
+    }
+
+    render(){
+      let moves = []
+      //2. 循环列表,这样列表中每一个元素对对应一个h5标签里面包含着相应的商品列表
+      for(let v of this.state.list){
+        moves.push(<h5>{v}</h5>)
+      }
+      return(
+        <div>
+          <h1>Hello Word 案例</h1>
+          <div>
+            <h2>{this.state.hi}</h2>
+            <button onClick={this.btnClick.bind(this)}>按钮</button>
+          </div>
+          <hr/>
+          <h2>渲染列表</h2>
+          <div>
+            {/*1. 通过下标,这种比较麻烦,并且如果列表数据过多,就不好使用  不推荐使用*/}
+            <h5>{this.state.list[0]}</h5>
+            <h5>{this.state.list[1]}</h5>
+            <h5>{this.state.list[2]}</h5>
+            <h5>{this.state.list[3]}</h5>
+            <hr/>
+            {/*2. 通过先循环过列表然后每一个item*/}
+            <h2>先循环 直接渲染数组,数组每一项包含一个h5标签,对应再包含一个电影信息,</h2>
+            {moves}
+            <hr/>
+            <h2>通过map函数 ,映射出一个新的数组,推荐使用</h2>
+            {this.state.list.map(item => <h5>{item}</h5>)}
+            <hr/>
+          </div>
+          <h2>计数器</h2>
+          <div>
+            <h2>当前计数:{this.state.count}</h2>
+            <button onClick={this.Increment.bind(this)}>+</button>
+            <button onClick={this.Decrement.bind(this)}>-</button>
+          </div>
+          <hr/>
+          <div>
+            <h2>jsx语法可嵌入的变量数据类型</h2>
+            <h5>{this.state.number}---Number 类型</h5>
+            <h5>{this.state.String}---String 类型</h5>
+            <h5>{this.state.array}---Array 类型</h5>
+            <h5>{this.state.null}---null 类型</h5>
+            <h5>{this.state.undefined}---undefined 类型</h5>
+            <h5>{this.state.boolean}---Boolean 类型</h5>
+          </div>
+        </div>
+      )
+    }
+
+    btnClick(){
+      this.setState({
+        hi: 'Hello React'
+      })
+    }
+    Increment(){
+      this.setState({
+        count: this.state.count + 1
+      })
+    }
+    Decrement(){
+      this.setState({
+        count: this.state.count - 1
+      })
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+
+  // 注释要使用{/**/}
+</script>
+</html>

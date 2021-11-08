@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        count: 100,
+        movies:[1,2,3,4]
+      }
+      this.btnClick = this.btnClick.bind(this)
+    }
+
+    render(){
+      return(
+        <div>
+          <button onClick={this.btnClick(this.state.count)}>按钮</button>
+          <ul>
+            {
+              this.state.movies.map ((item,index,arr) => {
+                return (
+                  <li className="active"
+                      onClick={ e => {this.liClick(item,index,arr,e)} }>
+                      {item}
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    btnClick(count,e){
+      console.log(count,e)
+    }
+    liClick(t,i,a,e){
+      console.log(t,i,a,e)
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

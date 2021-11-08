@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  // const message =     <div>
+  //   <h2>sss</h2>
+  // </div>
+  // ReactDOM.render(
+  //   message,
+  //   document.getElementById('app'))
+  /*等同于上面的写法 ,上面的只不过是是JSX 相当于这里的React.createElement的语法糖*/
+  // React.createElement(type,config,children)
+  //type:当前 ReactElement的类型,如果是元素 就传入div等等,如果是组件,你就传入组件名称
+  //config 所有jsx中的属性,都在这里以键值对的方式存储
+  //children : 存放在标签内的内容,以children数组的方式存储,如果有多个元素,React内部也会对它进行操作
+  // let element = React.createElement('h2',null,'sss')
+  let element = React.createElement('h2',null,'你好');
+  console.log(element);
+  ReactDOM.render(element,document.getElementById('app'))
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app">App</div>
+</body>
+<script  src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script  src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  //封装组件App   必须继承与React.Component才能为组件
+  class App extends React.Component{
+
+      constructor(){  //构造函数
+        super(); //继承后,必须在子类的构造函数中调用super
+       this.state = {
+         message: 'Hello Word'
+       }
+      }
+      //此组件渲染内容
+      //render 永远不要手动调用(因为没用),而是React自己调用
+      render(){
+        //语法要求: return 返回所需渲染
+        //用括号只是代表这是一个整体
+        return (
+          //需要一个根元素
+          <div>
+            <h2>{this.state.message}</h2>
+            <button onClick={this.btnClick.bind(this)}>切换</button>
+          </div>
+        )
+      }
+      //App类中定义的方法
+      btnClick(){
+        // bind是因为  这里会btnClick.apply(undefined),所以获取不到此类的this
+        // 这里this.message改变了但是没有修改dom内容,是因为只会把你render函数的返回值返回给你,而虚拟dom并不知道要重新渲染
+        this.message = 'Hello React'
+        console.log(this.message)
+        //需要通过this.setState() 来修改数据 要求传入对象,会自己执行更新操作,
+        //自动调用render函数,通过最新数据返回jsx相关的React.createElement相关的节点,随之更新.
+        this.setState({
+          message: 'Hello React'
+        })
+      }
+    }
+    //渲染组件App
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

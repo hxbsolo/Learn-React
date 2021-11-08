@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        count: 100
+      }
+    }
+
+    //在React中调用函数,会出现this为undefined的情况,是因为你只是提供了这样一个函数,而执行这个函数的是React , 它会在调用此函属时,将次函数的this指向undef。
+    //如果改变this为我们的组件呢？
+    render(){
+      return(
+        <div>
+          {/*1. 直接通过bind改变this,如果有多个回调事件,那么就需要手动bind改变this很多this,麻烦且会有点浪费性能s*/}
+          <button onClick={this.btnClick.bind(this)}>按钮1</button>
+          {/*2. 通过箭头函数*/}
+          <button onClick={this.increment}>+1</button>
+          {/*3. (推荐)回调使用箭头函数,在其中调用你想要调用的函数*/}
+          <button onClick={ (e) => { this.decrement(e)} }>-1</button>
+        </div>
+      )
+    }
+
+    btnClick(){
+    console.log(this.state.count)
+    }
+    //React 中的实验语法
+    // class fields 语法
+    //这里 跟  this.increment(){ console.log(this.state.count,`+++`) } 有些相似
+    increment = () =>{
+      console.log(this.state.count,`+++`)
+    }
+    decrement(e){
+      console.log(e)
+      console.log(this.state.count,`----`)
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

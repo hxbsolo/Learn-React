@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div>Header</div>
+  <div id="app">App</div>
+  <div>Footer</div>
+</body>
+<script  src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script  src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<!-- 使用React开始开发-->
+<!-- 注意事项:使用jsx ,并且希望script中的jsx代码被解析,必须将script中添加 type=‘text/babel’-->
+<script type="text/babel">
+  //使用ReactDom.render(渲染的内容,绑定的Dom元素)
+  let message = 'Hello Word'
+    ReactDOM.render(
+      //React 使用大括号来解析变量
+      <h2>{message}</h2>,
+      document.getElementById('app')
+    )
+</script>
+</html>

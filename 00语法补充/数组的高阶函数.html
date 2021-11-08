@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+<!--  要求给names数组每一个元素后面追加一个000-->
+    const names= ['abc','dfs','fdf']
+//   names.map(参数1,参数二)
+// 参数一代表了一个回调函数 其回调函数又包含三个参数:参数一执行的对应元素,参数二对应下标,完整的数组对象
+// 参数二代表给回调函数绑定this
+    let name = names.map(
+      v =>  // 这里的v  代表了数组的每一项
+        `${v}000`   //names中的每一项做一些格外操作,最后会自动返回
+    )
+    let n = names.map( (item,index,array) =>{
+      return item
+    })
+    console.log(name)
+</script>
+</html>

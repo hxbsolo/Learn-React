@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        name:'why',
+        age: 18,
+        list:['cba','nba','mba'],
+        //以下数据类型不能够在jsx语法正常显示
+        test: null,
+        test1: undefined,
+        test2: true,
+        test3: false,
+        fn: function sun(){console.log(1)},
+        obj:{
+          name:'kobe',
+          age:40
+        }
+      }
+    }
+
+    render(){
+      return (
+        <div>
+          {/*以下数据类型在jsx语法内部是可以正常显示的
+           String , Number , Array
+          */}
+          <h2>{this.state.name}</h2>
+          <h2>{this.state.age}</h2>
+          <h2>{this.state.list}</h2>
+          {/*jsx语法中不能够显示的数据类型
+          null , undefined , Boolean
+          */}
+          <h2>{this.state.test}</h2>
+          <h2>{this.state.test1}</h2>
+          <h2>{this.state.test2}</h2>
+          <h2>{this.state.test3}</h2>
+          <hr/>
+          {/*Boolearn 有toString 方法*/}
+          <h2>{this.state.test3.toString()}</h2>
+          {/*null/undefinded 并没有toString方法*/}
+          <h2>{String(this.state.test)}</h2>
+          <h2>{String(this.state.test1)}</h2>
+          {/*也可以使用+''  js的引引加加*/}
+          <h2>{this.state.test1 + ''}</h2>
+          {/*function obj 也不可以*/}
+          <h2>{this.state.fn}</h2>
+          <h2>{this.state.obj}</h2>
+        </div>
+      )
+    }
+  }
+    ReactDOM.render(App,document.getElementById('app'))
+</script>
+</html>

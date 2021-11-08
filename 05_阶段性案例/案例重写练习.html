@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table{
+            border: 1px solid #000;
+            /*table特有属性,可以合并边框*/
+            border-collapse:collapse;
+        }
+         td{
+            border: 1px solid #000;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.16.2/babel.min.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        Book:[
+          {id:1,name:'《算法导论1》',date:'2006-9',price:85,count:1},
+          {id:2,name:'《算法导论2》',date:'2006-9',price:25,count:1},
+          {id:3,name:'《算法导论3》',date:'2006-9',price:35,count:1},
+          {id:4,name:'《算法导论4》',date:'2006-9',price:45,count:1},
+        ],
+        totalPrice: '0',
+      }
+    }
+
+    //显示商品
+    renderBook(){
+      return (
+        <div>
+          <table>
+            <thead>
+            <tr>
+              <td></td>
+              <td>数据名称</td>
+              <td>出版日期</td>
+              <td>价格</td>
+              <td>购买数量</td>
+              <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              this.state.Book.map( (item,index) =>{
+                return (
+                  <tr key={item.id}>
+                    <td>{index+1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.date}</td>
+                    <td>{this.getPrice(item.price)}</td>
+                    <td>
+                      <button disabled={item.count<2} onClick={ e=>this.changeBookCount(index,-1)}>-</button>
+                      {item.count}
+                      <button onClick={ e=>this.changeBookCount(index,1)}>+</button>
+                    </td>
+                    <td>
+                      <button onClick={
+                        e=>{
+                          this.removeBook(index)
+                        }
+                      }>移除</button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+            </tbody>
+          </table>
+          <h1>总价:{this.getTotalPrice()}</h1>
+        </div>
+      )
+    }
+    //无商品显示
+    renderShop(){
+      return  <h2>购物车暂无商品~</h2>
+    }
+
+    render(){
+      return(
+        <div>
+          {this.state.Book.length?this.renderBook():this.renderShop()}
+        </div>
+      )
+    }
+
+    //过滤价格
+    getPrice(price){
+      if(typeof price === 'number'){
+        return `¥${price.toFixed(2)}`
+      }else  {
+        return console.error('输入的价格格式有误')
+      }
+    }
+
+    //计算总价
+    getTotalPrice(){
+      let TotalPrice = this.state.Book.reduce( (preValue,item)=>{
+        return preValue+=item.price * item.count
+      },0)
+      return this.getPrice(TotalPrice)
+    }
+    //移除
+    removeBook(index){
+      this.setState({
+        Book: this.state.Book.filter((item,i)=>{
+          return index!==i
+        })
+      })
+    }
+
+    //数量改变
+    changeBookCount(index,i){
+      let Books = [...this.state.Book]
+      Books[index].count+=i;
+      this.setState({
+        Book:Books
+      })
+    }
+  }
+
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

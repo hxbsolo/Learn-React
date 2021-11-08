@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        Login: false,
+        welcome: null,
+        btnTitle: null
+      }
+    }
+
+    render(){
+      // {/*1.通过if来进行条件渲染,适合逻辑语句比较多的时候.*/}
+      let {Login,welcome,btnTitle} = this.state
+      if(Login){
+        welcome = '欢迎回来~'
+        btnTitle = '退出'
+      }else{
+        welcome = '请登录~'
+        btnTitle = '登录'
+      }
+      return(
+        <div>
+          {/*1. if判断*/}
+          <h2>{welcome}</h2>
+          <button onClick={ () => this.btnClick()}>{btnTitle}</button>
+          <hr/>
+          {/*2. 通过逻辑 与 &&*/}
+          <h2>{Login && 'codeWhy'}</h2>
+          {Login &&  <h2>codeWhy</h2>}
+        </div>
+      )
+    }
+    btnClick(){
+      this.setState({
+        Login: !this.state.Login
+      })
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

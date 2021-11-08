@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table{
+            border: 1px solid #000;
+            /*对于边框进行折叠 tabbel特有*/
+            border-collapse: collapse;
+        }
+        th,td{
+            border: 1px solid #000;
+            padding: 10px;
+        }
+        td>button{
+            margin-left: 3px;
+        }
+        span{
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script src="./format-utils.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        list:[
+          {id:1,name:'《算法导论1》',date:'2006-9',price:'85',count:'1'},
+          {id:2,name:'《算法导论2》',date:'2006-9',price:'25',count:'1'},
+          {id:3,name:'《算法导论3》',date:'2006-9',price:'35',count:'1'},
+          {id:4,name:'《算法导论4》',date:'2006-9',price:'45',count:'1'},
+        ],
+        totalPrice: '0',
+      }
+    }
+
+    render(){
+      return this.state.list.length ? this.renderBook() : this.renderEmpty()
+    }
+
+    //获得总价
+    getTotalPrice(){
+      //for 循环获得总结
+      let totalPrice = 0;
+      for(let i of this.state.list){
+        totalPrice += i.price * i.count
+      }
+      // reduce 归纳  filter/map/reduce
+      //reduce(回调函数,回调函数中有四个参数,
+      // (preValue,item,index,arr)
+      //上一次回调的结果,遍历的每一项,下标,被遍历的数组
+      //由于第一次是回去不到上一次的结果,所以需要赋初始值
+      // initialValue(初始化值))
+      this.state.list.reduce( (preValue,item,index,arr)=>{
+        return preValue + item.price * item.count
+      },0) //initialValue(初始化值) 赋初始值为0
+      return formatPrice(totalPrice) //返回结果
+    }
+
+    //移除
+    removeBook(index){
+      //React中设计原则: state中的数据不可变性
+      //state中的数据不可以更改
+      this.setState({
+        list: this.state.list.filter( (item,i)=> index !==i)
+      })
+    }
+    //渲染商品
+    renderBook(){
+      return ( <div >
+          <table>
+            <thead>
+            <tr>
+              <td></td>
+              <td>数据名称</td>
+              <td>出版日期</td>
+              <td>价格</td>
+              <td>购买数量</td>
+              <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              this.state.list.map( (item,index) =>{
+                return(
+                  <tr key={item.id}>
+                    <td>{index+1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.date}</td>
+                    <td>{formatPrice(item.price)}</td>
+                    <td>
+                      <button>-</button>
+                      <span>{item.count}</span>
+                      <button>+</button>
+                    </td>
+                    <td>
+                      <button onClick={ e=>{
+                        this.removeBook(index)
+                      }}>移除</button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+            </tbody>
+          </table>
+          <h1>总价格:{this.getTotalPrice()}</h1>
+        </div> )
+    }
+    //购物车为空显示
+    renderEmpty(){
+      return  <h2>购物车还没有商品哦~</h2>
+    }
+  }
+  ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

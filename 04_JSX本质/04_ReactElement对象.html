@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {}
+    }
+
+    render(){
+     // jsx -> React.createElement -> ReactElement(对象树,也就是虚拟DOM） -> ReactDOM.render() -> 真实DOM
+     let Elementobj =    /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+          className: "header"
+        }, /*#__PURE__*/React.createElement("h2", {
+          title: "\u6807\u9898"
+        }, "\u6211\u662F\u6807\u9898")), /*#__PURE__*/React.createElement("div", {
+          className: "content"
+        }, /*#__PURE__*/React.createElement("h2", null, "\u6211\u662F\u9875\u9762\u5185\u5BB9"), /*#__PURE__*/React.createElement("button", null, "\u6309\u94AE"), /*#__PURE__*/React.createElement("a", {
+          href: "www.baidu.com"
+        }, "\u767E\u5EA6\u4E00\u4E0B")), /*#__PURE__*/React.createElement("div", {
+          className: "footer"
+        }, /*#__PURE__*/React.createElement("h2", null, "\u6211\u662F\u5C3E\u90E8\u7684\u5185\u5BB9")))
+      console.log(Elementobj)
+      return Elementobj
+    }w
+  }
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('app'))
+</script>
+</html>

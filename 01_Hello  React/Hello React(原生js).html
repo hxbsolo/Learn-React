@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app">
+      <h2 class="title"> </h2>
+      <button id="btn">改变</button>
+  </div>
+</body>
+<script>
+  //命令式编程: 每做一个操作,都是给计算机(浏览器)一步步命令
+
+    //1.定义数据
+    let message = 'Hello Word';
+
+    //2.显示message
+    let title = document.getElementsByClassName('title')[0]
+    title.innerHTML = message
+    //2.点击按钮文本内容变化
+    document.getElementById('btn').addEventListener('click', ()=>{
+      console.log('发电机')
+      message = 'Hello React'
+      title.innerHTML = message
+    })
+</script>
+</html>

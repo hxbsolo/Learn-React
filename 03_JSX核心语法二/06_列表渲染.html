@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        movies: ['悬崖之上','？？？','？?','W'],
+        number: [123,44,232,13,68,4,890]
+      }
+    }
+
+    render(){
+      const {movies, number,} = this.state
+      return(
+        <div>
+          <h2>map函数进行列表渲染</h2>
+          <ul>
+            {
+              movies.map( item => <li>{item}</li>)
+            }
+            <hr/>
+          </ul>
+            <h2>列表(过滤掉小于50)</h2>
+            <ul>
+              {
+                number.filter( item => item>50).map( item => <li>{item}</li>)
+              }
+            </ul>
+            <hr/>
+
+            <h2>列表(一共有7条数据,我只需要4条,slice实现)</h2>
+            <ul>
+              {/* slice进行截取    slice(start,end) start 从哪里开始截取,到哪里结束 不会包含end*/}
+              {
+                number.slice(0,4).map(item => <li>{item}</li>)
+              }
+          </ul>
+        </div>
+      )
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

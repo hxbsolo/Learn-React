@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        title: '我是标题',
+        imgURL:'http://p1.music.126.net/iVkI0xKzuMNTKwuHmi3Xpw==/109951166139244802.jpg?imageView&quality=89',
+        oath:'网易云',
+        link: 'http://www.baidu.com',
+        className: 'active',
+        flag: true,
+        color: '#FFFFFF'
+      }
+    }
+
+    render(){
+      const {title, imgURL, oath, link, className,flag,color} = this.state
+      return(
+        <div>
+          {/*1 .动态绑定普通属性*/}
+          <h2 title={title}>我是标题</h2>
+          <img src={imgURL} alt={oath}/>
+          <a href={link}></a>
+          {/*2. 绑定class 要写为className*/}
+          <div className={className}>我是div元素</div>
+          {/*React的class不能够直接通过三元表达式来进行绑定的*/}
+          <div className="box title">1111</div>
+          <div className={flag ? 'titlee' : ''}></div>
+          {/*两者是一样的*/}
+          <div className="{box title}">1111</div>
+          {/*3. 绑定style*/}
+          {/*   一个{}代表JSX语法  里面添加一个{key:value,key:value} ,代表一个对象
+             你的属性名就正常写,属性值如果直接写的话,需要加上引号,
+             复合属性名需要使用小驼峰命名法
+          */}
+          <div style={ {background:'red',fontSize:'50px',color:color} }>div绑定style</div>
+        </div>
+      )
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>

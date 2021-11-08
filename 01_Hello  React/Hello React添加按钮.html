@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app">App</div>
+</body>
+<script  src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script  src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<!-- 使用React开始开发-->
+<!-- 注意事项:使用jsx ,并且希望script中的jsx代码被解析,必须将script中添加 type=‘text/babel’-->
+<!--jsx特点: 多个组件最外层只能有一个根元素-->
+<script type="text/babel">
+  let message = 'Hello Word'  //初始化数据
+  function btnClick(){
+    message = 'Hello React' //数据更新
+    render() //数据更新调用render函数,通知React重新渲染
+  }
+  //封装一个函数,方便使用
+  function render(){
+    ReactDOM.render(
+      //所渲染的内容
+      <div>
+        <h2>{message}</h2>
+        <button onClick={btnClick}>切换</button>
+      </div>,
+      document.getElementById('app') //绑定DOM元素
+    )
+  }
+  render() //默认调用一次,进行第一次渲染
+</script>
+</html>

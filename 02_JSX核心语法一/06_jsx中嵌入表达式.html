@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!--引入本地依赖-->
+<script  src="../react@16.14.0.js" crossorigin></script>
+<script  src="../react-dom@16.14.0.js" crossorigin></script>
+<script src="../babel-standalone@6.js"></script>
+<script type="text/babel">
+  class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        firstname:'kobe',
+        lastname: 'bryant',
+        isLogin: true
+      }
+    }
+
+    render(){
+      const {firstname ,lastname,isLogin} = this.state
+      return(
+        <div>
+          {/*1. 运算符表达式*/}
+          <h2>{firstname + lastname}</h2>
+          {/*2. 三元表达式*/}
+          <h2>{isLogin? '欢迎回来' : '请先登录'}</h2>
+          {/*3. 函数调用*/}
+          <h2>{this.getFullName()}</h2>
+        </div>
+      )
+    }
+
+    getFullName(){
+      return this.state.firstname + '' + this.state.lastname
+    }
+  }
+    ReactDOM.render(<App/>,document.getElementById('app'))
+</script>
+</html>
